@@ -1,8 +1,8 @@
 # `ai_suggestion`
 
-## ai_suggestion_frontend: `https://yvfhy-xqaaa-aaaac-asdta-cai.icp0.io/`
+## Frontend: `https://yvfhy-xqaaa-aaaac-asdta-cai.icp0.io/`
 
-## ai_suggestion_backend: `https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=y4gme-byaaa-aaaac-asdsq-cai`
+## Backend: `https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=y4gme-byaaa-aaaac-asdsq-cai`
 
 Welcome to your new `ai_suggestion` project and to the Internet Computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
 
