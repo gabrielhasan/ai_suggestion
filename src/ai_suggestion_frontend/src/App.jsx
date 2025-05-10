@@ -1,30 +1,53 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ai_suggestion_backend } from 'declarations/ai_suggestion_backend';
+import './index.scss'
 
 function App() {
-  const [greeting, setGreeting] = useState('');
+  const [content, setContent] = useState('');
+  const [summary, setSummary] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    ai_suggestion_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
-    });
-    return false;
-  }
+  const fetchSuggestions = async () => {
+    const res = await ai_suggestion_backend.getSuggestions();
+    setSuggestions(res);
+  };
+
+  const submitSuggestion = async () => {
+    await ai_suggestion_backend.addSuggestion(content, summary);
+    setContent('');
+    setSummary('');
+    fetchSuggestions();
+  };
+
+  useEffect(() => {
+    fetchSuggestions();
+  }, []);
 
   return (
-    <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
-    </main>
+    <div className="suggestion-container">
+      <h1>AI Suggestion Box</h1>
+      <div className="suggestion-input">
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Your idea..."
+        />
+        <input
+          value={summary}
+          onChange={(e) => setSummary(e.target.value)}
+          placeholder="Short summary"
+        />
+        <button onClick={submitSuggestion}>Submit Suggestion</button>
+      </div>
+      <div className="suggestion-list">
+        {suggestions.map((sug, i) => (
+          <div className="suggestion-card" key={i}>
+            <p>{sug.content}</p>
+            <span><em>{sug.summary}</em></span>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
